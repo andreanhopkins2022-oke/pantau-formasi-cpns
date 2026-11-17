@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFF1F5">
+<title>PANTAU FORMASI CPNS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+ <button id="burger" class="b" aria-label="Buka menu"></button>
+ <div class="logo"><i id="lg"></i><div><b>PANTAU FORMASI CPNS</b><small>Dashboard Analisis Formasi CPNS Indonesia</small></div></div>
+ <div id="hn"></div>
+</header>
+<div id="ov"></div>
+<nav aria-label="Navigasi utama"></nav>
+<main id="views">
+
+<section class="view" id="v-beranda">
+ <div class="p hero">
+  <h1>Cari tahu peluang formasi CPNS 2026 sebelum Anda mendaftar</h1>
+  <p class="mut" style="max-width:600px">Lihat rekap formasi per instansi, jurusan, jabatan, dan lokasi dalam satu dashboard yang ringkas.</p>
+  <div class="row"><input class="inp" id="hq" placeholder="Cari jurusan, instansi, jabatan, atau lokasi..." style="flex:1;min-width:220px"><button class="b pk" id="hgo"></button></div>
+  <div class="row"><button class="b or" data-v="jurusan" id="hup"></button><button class="b gr" data-v="dashboard" id="hds"></button></div>
+  <p class="mut" id="st" style="margin:14px 0 0"></p>
+ </div>
+ <div class="p"><h2>Jelajahi rekap</h2><div class="g" id="home-grid"></div></div>
+ <div class="p"><h2>Informasi data</h2>
+  <div class="info">
+   <div><small>Sumber data</small>Portal SSCASN BKN (diolah menjadi rekapitulasi)</div>
+   <div><small>Tahun data</small><span id="i-yr">2026</span></div>
+   <div><small>Waktu pembaruan</small><span id="i-time">Belum ada</span></div>
+  </div>
+  <p class="mut" style="margin-bottom:0">Catatan: seluruh angka adalah data rekapitulasi. Kursi dihitung satu kali per ID formasi. Satu formasi dapat membuka banyak jurusan dan jenjang, jadi angka pada Rekap Jurusan dan Rekap Pendidikan tidak boleh dijumlahkan.</p>
+ </div>
+</section>
+
+<section class="view" id="v-dashboard">
+ <div class="p"><h2>Ringkasan Data Nasional</h2><p class="mut" id="nat" style="margin:0 0 12px"></p><p class="mut" id="dn">Data formasi belum tersedia. Silakan kembali lagi nanti.</p><div class="g" id="cards"></div>
+  <div class="row noprint"><button class="b gr" id="pl"></button><button class="b bl" id="ps"></button></div></div>
+ <div class="cg" id="rk" style="margin-bottom:20px"></div>
+ <div class="p" id="rp" hidden><h3>Ringkasan dari berkas</h3><div class="tw" id="rt"></div></div>
+ <div class="cg">
+  <div class="p"><h3>10 Jurusan dengan ID Formasi Terbanyak</h3><div class="cv"><canvas id="c1"></canvas></div></div>
+  <div class="p"><h3>10 Instansi dengan Kursi Terbesar</h3><div class="cv"><canvas id="c2"></canvas></div></div>
+  <div class="p"><h3>10 Jabatan Terbanyak</h3><div class="cv"><canvas id="c3"></canvas></div></div>
+  <div class="p"><h3>Distribusi Pendidikan</h3><div class="cv"><canvas id="c4"></canvas></div></div>
+  <div class="p"><h3>Kategori Formasi</h3><div class="cv"><canvas id="c5"></canvas></div></div>
+  <div class="p"><h3>10 Lokasi dengan Kursi Terbanyak</h3><div class="cv"><canvas id="c6"></canvas></div></div>
+ </div>
+</section>
+
+<section class="view" id="v-cari">
+ <div class="p"><h2>Pencarian Data</h2><p class="mut">Cari dalam rekap hasil unggahan: jurusan, instansi, jabatan, dan lokasi.</p>
+  <div class="row"><input class="inp" id="sq" placeholder="Ketik minimal 2 huruf..." style="flex:1;min-width:220px"><select class="inp" id="sd" style="width:auto"><option value="all">Semua</option><option value="major">Jurusan</option><option value="agency">Instansi</option><option value="pos">Jabatan</option><option value="loc">Lokasi</option></select></div>
+  <div id="sr" style="margin-top:12px"></div>
+  <div class="row noprint"><button class="b gr" data-sf="xlsx">Unduh Hasil (Excel)</button><button class="b bl" data-sf="csv">Unduh Hasil (CSV)</button></div>
+ </div>
+</section>
+
+<section class="view" id="v-unggah">
+ <div class="p"><h2>UNGGAH DATABASE FORMASI CPNS</h2><p class="mut">Format: Excel (.xlsx, .xls) dengan sheet rekap, atau CSV. Berkas dibaca langsung di browser ini dan tidak dikirim ke server mana pun. Berkas rekap yang dikenali: RINGKASAN, REKAP_INSTANSI, REKAP_JURUSAN, REKAP_LOKASI, REKAP_JABATAN, REKAP_PENDIDIKAN, REKAP_KATEGORI. CSV mentah SSCASN (kolom formation_id) juga bisa dibaca.</p>
+  <label class="mut" for="yr">Tahun tampilan</label><input class="inp" id="yr" type="number" value="2026" style="max-width:160px;margin:4px 0 14px">
+  <label class="dz" id="dz"><input type="file" id="fi" accept=".csv,.xlsx,.xls" hidden><b>Seret berkas ke sini</b><br><span class="mut">atau gunakan tombol di bawah</span></label>
+  <div class="row"><button class="b pu" id="pick"></button></div>
+  <div class="pr"><i id="pb"></i></div><div class="ind" id="ind" aria-hidden="true"></div>
+  <div class="info" style="margin-top:14px"><div><small>Nama file</small><span id="fn">-</span></div><div><small>Ukuran</small><span id="fz">-</span></div><div><small>Jumlah sheet</small><span id="fs">-</span></div><div><small>Status</small><span id="us">Belum ada berkas</span></div></div>
+  <div id="sl"></div>
+  <p class="cap">Berkas</p><div class="row" style="margin-top:6px"><button class="b or" id="nw"></button><button class="b bl" id="chg"></button><button class="b pk" id="cl"></button></div>
+  <p class="cap">Penyimpanan di browser ini (IndexedDB)</p><div class="row" style="margin-top:6px"><button class="b gr" id="sv"></button><button class="b pu" id="ld"></button><button class="b pk" id="dd"></button></div>
+  <p class="cap">Situs publik (Cloudflare milik Anda)</p><p class="mut" style="margin:2px 0 0">Hanya hasil rekap yang dikirim, bukan berkas aslinya.</p><div class="row" style="margin-top:6px"><button class="b tq" id="pub"></button><button class="b pk" id="del"></button></div>
+  <div class="row"><button class="b" id="out" style="background:#9b92ad"></button></div>
+ </div>
+</section>
+
+<section class="view" id="v-panduan">
+ <div class="p"><h2>Panduan Penggunaan</h2>
+  <ol><li>Buka <b>Dashboard Statistik</b> untuk kartu ringkasan dan grafik.</li>
+  <li>Buka menu <b>Rekap</b> untuk daftar lengkap per instansi, jurusan, jabatan, lokasi, pendidikan, atau kategori. Gunakan kolom saring di atas tabel.</li>
+  <li>Gunakan <b>Pencarian Data</b> untuk menemukan nama tertentu beserta jumlah kursinya.</li>
+  <li>Data diperbarui oleh admin. Waktu pembaruan terakhir tertera di Beranda pada bagian Informasi data.</li></ol>
+ </div>
+ <div class="p"><h2>Tentang Aplikasi</h2><p>PANTAU FORMASI CPNS membantu pelamar membaca data formasi CPNS dengan cepat. Aplikasi ini bersifat informatif dan bukan situs resmi pemerintah. Pastikan formasi dan persyaratan akhir pada portal resmi SSCASN BKN.</p></div>
+</section>
+</main>
+<dialog id="dl"><form id="pf"><h3>Masuk Admin</h3><input class="inp" id="pw" type="password" placeholder="Password admin" autocomplete="current-password" required><p id="pe" style="color:#d6336c;margin:8px 0 0;min-height:22px"></p><div class="row"><button class="b pu" type="submit">Masuk</button><button class="b" type="button" id="px" style="background:#9b92ad">Batal</button></div></form></dialog>
+<div id="ts" role="status" aria-live="polite"></div>
+<div id="bz" hidden role="alert"><div class="sp"></div><p id="bzt">Memproses...</p><div class="pr" style="width:min(80vw,280px)"><i id="bzp"></i></div></div>
+
+<script>
+/* Muat pustaka: salinan lokal (assets/vendor) dulu, lalu CDN bila lokal tidak ada. Setelah itu baru script.js. */
+(function(){
+ var L=[['assets/vendor/chart.umd.min.js','https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js'],
+        ['assets/vendor/xlsx.full.min.js','https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js']];
+ function ld(u,ok,no){var s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=function(){s.remove();no()};document.head.appendChild(s)}
+ function next(i){
+  if(i>=L.length){var s=document.createElement('script');s.src='script.js';document.body.appendChild(s);return}
+  ld(L[i][0],function(){next(i+1)},function(){ld(L[i][1],function(){next(i+1)},function(){next(i+1)})});
+ }
+ next(0);
+})();
+</script>
+</body>
+</html>
